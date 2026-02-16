@@ -1,0 +1,18 @@
+app:
+  name: SaaSProject
+
+server:
+  host: localhost
+  port: "8080"
+
+database:
+  username: postgres
+  password: 1234
+  host: 127.0.0.1
+  port: "5432"
+  name: notes
+  sslmode: disable
+
+jwt:
+  secret: super-secret-key
+  expires_in: 24

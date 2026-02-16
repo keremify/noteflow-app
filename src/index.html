@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteFlow | Yeni Nesil Not Uygulaması</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-shape bg-shape-a"></div>
+  <div class="bg-shape bg-shape-b"></div>
+
+  <header class="topbar">
+    <a href="#/" class="brand">NoteFlow BETA</a>
+    <nav class="topnav">
+      <a href="#/">Ana Sayfa</a>
+      <a href="#/dashboard" data-protected="true">Dashboard</a>
+      <a href="#/login" data-public-only="true">Giriş Yap</a>
+      <a href="#/register" data-public-only="true">Kayıt Ol</a>
+      <button id="logoutBtn" class="ghost" data-protected="true">Çıkış Yap</button>
+    </nav>
+  </header>
+
+  <main id="app" class="app-shell"></main>
+
+  <template id="home-view">
+    <section class="hero">
+      <p class="kicker">Notlarınızı temiz ve düzenli biçimde saklayın</p>
+      <h1>Fikirleriniz tek bir yerde bulunsun.</h1>
+      <p class="muted">Planlarınız, görevleriniz ve notlarınız için en doğru yer.</p>
+      <div class="row">
+        <a class="btn" href="#/register">Bir Hesap Oluşturun</a>
+        <a class="btn btn-alt" href="#/login">Giriş Yapın</a>
+      </div>
+    </section>
+  </template>
+
+  <template id="login-view">
+    <section class="panel">
+      <h2>Giriş Yap</h2>
+      <form id="loginForm" class="form">
+        <label>E-Posta <input type="email" name="email" required></label>
+        <label>Şifre <input type="password" name="password" required></label>
+        <button class="btn" type="submit">Giriş Yap</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="register-view">
+    <section class="panel">
+      <h2>Kayıt Ol</h2>
+      <form id="registerForm" class="form">
+        <label>Kullanıcı Adı <input type="text" name="name" minlength="2" required></label>
+        <label>E-Posta <input type="email" name="email" required></label>
+        <label>Şifre <input type="password" name="password" minlength="6" required></label>
+        <button class="btn" type="submit">Hesap Oluştur</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="dashboard-view">
+    <section class="grid">
+      <article class="panel">
+        <h2>Dashboard</h2>
+        <p class="muted" id="sessionInfo"></p>
+        <p id="statsLine"></p>
+      </article>
+      <article class="panel">
+        <h2>Not Oluştur</h2>
+        <form id="createNoteForm" class="form">
+          <label>Başlık <input type="text" name="title" required></label>
+          <label>İçerik <textarea name="content" rows="5" required></textarea></label>
+          <button class="btn" type="submit">Kaydet</button>
+        </form>
+      </article>
+    </section>
+    <section class="panel">
+      <div class="row spread">
+        <h2 id="panelTitle">Kullanıcı Paneli</h2>
+        <button id="refreshNotesBtn" class="ghost">Yenile</button>
+      </div>
+      <div id="notesList" class="notes"></div>
+    </section>
+  </template>
+
+  <template id="note-item">
+    <article class="note-card">
+      <div class="row spread">
+        <h3 class="note-title"></h3>
+        <small class="chip"></small>
+      </div>
+      <p class="note-content"></p>
+      <div class="row">
+        <button class="ghost edit-btn">Düzenle</button>
+        <button class="ghost danger delete-btn">Sil</button>
+      </div>
+    </article>
+  </template>
+
+  <div id="editorModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal="true"></div>
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="editNoteTitle">
+      <div class="row spread">
+        <h3 id="editNoteTitle">Notu Düzenle</h3>
+        <button id="closeModalBtn" class="ghost" type="button">Kapat</button>
+      </div>
+      <form id="editNoteForm" class="form">
+        <input type="hidden" name="id">
+        <label>Başlık <input type="text" name="title" required></label>
+        <label>İçerik <textarea name="content" rows="7" required></textarea></label>
+        <div class="row">
+          <button class="btn" type="submit">Değişiklikleri Kaydet</button>
+          <button id="cancelModalBtn" class="ghost" type="button">İptal</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
